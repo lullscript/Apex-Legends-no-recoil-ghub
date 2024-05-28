@@ -1,24 +1,23 @@
--- Logitech G Hub Apex Legends No-Recoil Script
+-- Logitech G Hub Apex Legends No-Recoil Script with Caps Lock Toggle
+
+local noRecoilEnabled = false
 
 function OnEvent(event, arg)
-    if event == "MOUSE_BUTTON_PRESSED" and arg == 1 then
-        no_recoil_mode = not no_recoil_mode
-        if no_recoil_mode then
+    if event == "CAPSLOCK_TOGGLE" then
+        noRecoilEnabled = not noRecoilEnabled
+        if noRecoilEnabled then
             OutputLogMessage("No-recoil script enabled\n")
         else
             OutputLogMessage("No-recoil script disabled\n")
         end
     end
 
-    if event == "MOUSE_BUTTON_PRESSED" and arg == 2 then
-        no_recoil_mode = false
-        OutputLogMessage("No-recoil script disabled\n")
-    end
-
-    if event == "G_PRESSED" and no_recoil_mode then
-        -- Add your no-recoil logic here
-        -- Adjust the values to counteract the recoil pattern of your weapon in Apex Legends
-        MoveMouseRelative(0, -3)  -- Example: Counteract vertical recoil
-        Sleep(10)  -- Adjust the delay between mouse movements
+    if noRecoilEnabled then
+        if event == "G_PRESSED" then
+            -- Add your no-recoil logic here
+            -- Adjust the values to counteract the recoil pattern of your weapon in Apex Legends
+            MoveMouseRelative(0, -3)  -- Example: Counteract vertical recoil
+            Sleep(10)  -- Adjust the delay between mouse movements
+        end
     end
 end
